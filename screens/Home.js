@@ -5,13 +5,16 @@ import Header from '../components/Header'
 import MenuButtons from '../components/MenuButtons'
 import SearchBar from '../components/SearchBar'
 
-const Home = () => {
+const Home = ({ navigation }) => {
+    // const Home = () => {
+
   return (
     <View style={styles.container}>
       <SafeAreaView style={{height: '100%'}}>
         <Header />
         <SearchBar />
-        <MenuButtons />
+        <MenuButtons navigation={navigation}/>
+        {/* <MenuButtons /> */}
         <ContentsMenu />
       </SafeAreaView>
     </View>

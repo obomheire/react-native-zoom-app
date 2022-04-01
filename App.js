@@ -1,9 +1,11 @@
-import { StyleSheet, Text, View } from 'react-native';
-import Home from './screens/Home';
+import 'react-native-gesture-handler';
+import { StyleSheet } from 'react-native';
+// import Home from './screens/Home';
+import Navigation from './Navigation'
 
 export default function App() {
-  return < Home />
-
+  return < Navigation />
+  // return <Home />
 }
 
 const styles = StyleSheet.create({

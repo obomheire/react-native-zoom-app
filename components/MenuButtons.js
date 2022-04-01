@@ -38,12 +38,19 @@ const items = [
 //     );
 //   }
 
-const MenuButtons = () => {
+const MenuButtons = ({ navigation }) => {
+    // const MenuButtons = () => {
+
+    const openMeeting = () => {
+        navigation.navigate('Room')
+    }
+
   return (
     <View style={styles.container}>
         {items.map((item, index) => 
             <View style={styles.buttonContainer} key={index}>
-            < TouchableOpacity style={
+            < TouchableOpacity onPress={() => openMeeting()} style={
+            //< TouchableOpacity style={
                 {
                     ...styles.button, backgroundColor: item.customColor ? item.customColor : '#0470dc'
                 }
