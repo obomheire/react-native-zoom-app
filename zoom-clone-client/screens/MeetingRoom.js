@@ -9,6 +9,7 @@ const MeetingRoom = () => {
 
   const [ name, setName ] = useState()
   const [ roomId, setRoomId ] = useState()
+  const [ activeUsers, setActiveUsers ] =useState()
 
 const joinRoom = () => {
   socket.emit('join-room', { roomId, userName: name})
@@ -18,6 +19,11 @@ const joinRoom = () => {
     socket = io("http://192.168.88.130:3000")
     socket.on("connect", () => {
      // console.log(socket.connected); // this wiill log true in the console
+     socket.on('all-users', users => {
+       console.log('Active Users')
+       console.log(users)
+       setActiveUsers(users)
+     })
     });
   }, [])
 
