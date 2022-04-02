@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { View, StyleSheet} from 'react-native'
+import { View, StyleSheet, Text } from 'react-native'
 import StartMeeting from '../components/StartMeeting'
 import { io } from 'socket.io-client'
+import { Camera } from 'expo-camera';
 
 let socket
 
@@ -10,9 +11,17 @@ const MeetingRoom = () => {
   const [ name, setName ] = useState()
   const [ roomId, setRoomId ] = useState()
   const [ activeUsers, setActiveUsers ] =useState()
+  const [ startCamera, setStartCamera ] = useState(false)
+
+  const _startCamera = async () => {
+      const { status } = await Camera.requestCameraPermissionsAsync()
+      if (status === 'granted') setStartCamera(true)
+      else Alert.alert('Access Denied')
+  }
 
 const joinRoom = () => {
-  socket.emit('join-room', { roomId, userName: name})
+    _startCamera()
+    socket.emit('join-room', { roomId, userName: name})
 }
 
   useEffect(() => {
@@ -29,13 +38,19 @@ const joinRoom = () => {
 
   return (
     <View style={styles.container}>
-      <StartMeeting
-        name={name}
-        roomId={roomId}
-        setName={setName}
-        setRoomId={setRoomId}
-        joinRoom={joinRoom}
-      />
+      {startCamera ? (
+        <Text> Start Camera</Text>
+      ) : (
+        // Start Meeting Section
+        <StartMeeting
+          name={name}
+          roomId={roomId}
+          setName={setName}
+          setRoomId={setRoomId}
+          joinRoom={joinRoom}
+        />
+      )
+      }
     </View>
   );
 }
