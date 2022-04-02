@@ -5,7 +5,7 @@ const server = http.createServer(app);
 import { Server } from 'socket.io'
 const io = new Server(server);
 
-const users = []
+let users = []
 
 app.get('/', (req, res) => {
   res.send('<h1>Hello world</h1>');
