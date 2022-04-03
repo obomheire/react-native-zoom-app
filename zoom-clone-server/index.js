@@ -28,13 +28,16 @@ io.on('connection', socket => {
     console.log('User Joined Room')
     console.log(roomId)
     console.log(userName)
-    socket.join(roomId)
-    addUser(userName, roomId)
-    // console.log(users)
-    socket.to(roomId).emit('user-connected', userName)
-
-    //emit to all conneceted users
-    io.to(roomId).emit('all-users', getRoomUsers(roomId))
+    
+    if (roomId && userName) {
+      socket.join(roomId)
+      addUser(userName, roomId)
+      // console.log(users)
+      socket.to(roomId).emit('user-connected', userName)
+  
+      //emit to all conneceted users
+      io.to(roomId).emit('all-users', getRoomUsers(roomId))
+    }
 
     socket.on('disconnect', () => {
       console.log('disconnected')
